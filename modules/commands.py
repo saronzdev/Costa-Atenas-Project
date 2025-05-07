@@ -55,3 +55,8 @@ async def add_course(update: Update, context: ContextTypes.DEFAULT_TYPE):
   with open(DB_PATH, "w") as f:
     json.dump(db, f)
   await update.message.reply_text("Añadido a la BD")
+
+async def delete_course(update: Update, context: ContextTypes.DEFAULT_TYPE):
+  args = context.args
+  try:
+    int()
