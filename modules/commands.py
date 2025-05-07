@@ -1,18 +1,16 @@
 from telegram import Update
 from telegram.ext import ContextTypes, ConversationHandler
-from .config import DB_PATH
+from .config import DB_PATH, DESCRIPTIONS
 import json
 
 wait = {}
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-  await update.message.reply_text("Usa /help para ayuda")
+  name = update.effective_user.first_name
+  await update.message.reply_text(f"Hola {name}, bienvenido/a al bot, usa /help para ver los comandos disponibles")
 
 async def help(update: Update, context: ContextTypes.DEFAULT_TYPE):
-  await update.message.reply_text(
-    """
-    Usa /new_course <ID> para añadir un curso
-  """)
+  await update.message.reply_text("\n".join(DESCRIPTIONS))
 
 async def new_course(update: Update, context: ContextTypes.DEFAULT_TYPE):
   user_id = update.effective_user.id
