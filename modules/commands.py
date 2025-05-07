@@ -50,7 +50,10 @@ async def add_course(update: Update, context: ContextTypes.DEFAULT_TYPE):
   wait[user_id] = False
   with open(DB_PATH, "r") as f:
     db = json.load(f)
-    id = len(db) + 1
+    if len(db) > 0:
+      last_item = db[-1]
+      id = int(last_item["id"]) + 1 
+    else: id = 1
     data_to_save = {"id": id, "name": name, "price": price}
     db.append(data_to_save)
   
