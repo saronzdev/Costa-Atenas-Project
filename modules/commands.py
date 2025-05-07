@@ -33,8 +33,10 @@ async def get_courses(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def add_course(update: Update, context: ContextTypes.DEFAULT_TYPE):
   user_id = update.effective_user.id
-  if wait.get(user_id):
-    data = update.message.text.split(",")
+  
+  if not wait.get(user_id): return
+  
+  data = update.message.text.split(",")
   
   if len(data) < 2:
     return await update.message.reply_text("Formato incorrecto. Intente otra vez")
@@ -54,9 +56,33 @@ async def add_course(update: Update, context: ContextTypes.DEFAULT_TYPE):
   
   with open(DB_PATH, "w") as f:
     json.dump(db, f)
+
   await update.message.reply_text("Añadido a la BD")
 
 async def delete_course(update: Update, context: ContextTypes.DEFAULT_TYPE):
   args = context.args
+  if not args: return await update.message.reply_text("Ingresa el ID despues del comando para borrar el curso")
   try:
-    int()
+    id = int(" ".join(args))
+  except:
+    return await update.message.reply_text("ID invalido. Intente otra vez")
+  
+  with open(DB_PATH, "r") as f:
+    courses = json.load(f)
+    found = False
+    if len(courses) > 0:
+      for index, course in enumerate(courses):
+        if int(course["id"]) == id:
+          courses.pop(index)
+          found = True
+  
+  if not found: return await update.message.reply_text("El curso no existe")
+
+  with open(DB_PATH, "w") as f:
+    json.dump(courses, f)
+  return await update.message.reply_text("El curso fue eliminado")
+  
+
+
+  
+  
