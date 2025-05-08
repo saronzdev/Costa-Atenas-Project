@@ -1,7 +1,8 @@
 from telegram import Update
 from telegram.ext import ContextTypes, ConversationHandler
-from .config import DB_PATH, DESCRIPTIONS
+from .config import API_URL, DESCRIPTIONS
 import json
+import requests
 
 wait = {}
 
@@ -19,44 +20,33 @@ async def new_course(update: Update, context: ContextTypes.DEFAULT_TYPE):
   
 
 async def get_courses(update: Update, context: ContextTypes.DEFAULT_TYPE):
-  with open(DB_PATH, "r") as f:
-    courses = json.load(f)
-  
-  if len(courses) > 0:
+  response = requests.get(API_URL)
+  courses = response.json()
+  if len(courses) > 0: 
     for course in courses:
-      response = f"ID: {course["id"]}\nNombre: {course["name"]}\nPrecio: {course["price"]}"
-      await update.message.reply_text(response)      
-  else:  
-    await update.message.reply_text("No hay datos") 
+      await update.message.reply_text(course)
+  else: await update.message.reply_text("No hay cursos")
 
 async def add_course(update: Update, context: ContextTypes.DEFAULT_TYPE):
   user_id = update.effective_user.id
-  
   if not wait.get(user_id): return
-  
   data = update.message.text.split(",")
-  
   if len(data) < 2:
     return await update.message.reply_text("Formato incorrecto. Intente otra vez")
-  
   name = data[0]
+  
   try: 
     price = float(data[1])
   except ValueError:
     return await update.message.reply_text("Precio incorrecto. Intente otra vez.");
   
   wait[user_id] = False
-  with open(DB_PATH, "r") as f:
-    db = json.load(f)
-    if len(db) > 0:
-      last_item = db[-1]
-      id = int(last_item["id"]) + 1 
-    else: id = 1
-    data_to_save = {"id": id, "name": name, "price": price}
-    db.append(data_to_save)
-  
-  with open(DB_PATH, "w") as f:
-    json.dump(db, f)
+  new_course = {"name": name, "price": price}
+  response = requests.post(
+    API_URL,
+    json=new_course,
+    headers = {"Content-Type": "application/json"},
+  )
 
   await update.message.reply_text("Añadido a la BD")
 

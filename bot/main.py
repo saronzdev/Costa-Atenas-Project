@@ -1,14 +1,12 @@
 from telegram.ext import Application, ApplicationBuilder, CommandHandler, filters, MessageHandler
 from modules.commands import start, help, new_course, add_course, get_courses,delete_course
-from modules.config import BOT_TOKEN, COMMANDS, seed
+from modules.config import BOT_TOKEN, COMMANDS
 import requests
 
 async def post_init(application: Application):
   await application.bot.set_my_commands(COMMANDS)
 
 def main():
-  seed()
-  
   app = ApplicationBuilder().token(BOT_TOKEN).post_init(post_init).build()  
   app.add_handler(CommandHandler("start", start))
   app.add_handler(CommandHandler("help", help))

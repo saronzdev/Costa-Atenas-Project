@@ -1,12 +1,11 @@
 import os
-from pathlib import Path
 from telegram import BotCommand
 from dotenv import load_dotenv
 
 load_dotenv()
 
 BOT_TOKEN = os.getenv("BOT_TOKEN") 
-API_URL = "localhost:3000/data"
+API_URL = os.getenv("API_URL") + "/api/courses"
 COMMANDS = [
   BotCommand("start", "Iniciar el bot"),
   BotCommand("help", "Mostrar los comandos disponibles"),
