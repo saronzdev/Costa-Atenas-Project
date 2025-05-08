@@ -14,7 +14,7 @@ const inputPrice = document.getElementById("price")
 
 if (data.msg !== "error") {
   data.forEach(item => {
-    const element = `<li>Nombre: ${item.name}    Precio${item.price}</li>`
+    const element = `<li>Nombre: ${item.name}  |||  Precio: ${item.price}</li>`
     ul.insertAdjacentHTML("beforeend", element)
   })
 }
