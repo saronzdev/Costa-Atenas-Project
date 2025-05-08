@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-DB_PATH = Path(__file__).parent.parent / "db.json"
 BOT_TOKEN = os.getenv("BOT_TOKEN") 
 API_URL = "localhost:3000/data"
 COMMANDS = [
@@ -23,8 +22,3 @@ DESCRIPTIONS = [
   "Usa /get_courses para mostart una lista de los cursos disponibles",
   "Usa /delete_course <ID> para borrar el curso con dicho ID"
 ]
-
-def seed():
-  if not os.path.exists(DB_PATH):
-    with open(DB_PATH, "w") as f:
-      f.write("[]") 
