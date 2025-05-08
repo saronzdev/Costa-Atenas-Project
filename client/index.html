@@ -1,11 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Proyecto Costa Atenas</title>
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="module" src="./index.js"></script>
 </head>
 <body>
-  <h1>Hola</h1>
+  <h1 id="title">Cursos</h1>
+  <ul id="courses"></ul>
+  <br>
+  <br>
+  <h1>Agregar Curso</h1>
+  <form id="form">
+    <input type="text" name="name" id="name">
+    <input type="number" name="price" id="price">
+    <button type="submit">Agregar</button>
+  </form>
 </body>
 </html>
