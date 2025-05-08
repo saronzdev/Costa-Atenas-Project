@@ -5,7 +5,7 @@ from pydantic import BaseModel
 from typing import List
 import json
 import os
-from modules.config import DB_PATH, seed_db
+from .modules.config import DB_PATH, seed_db
 
 seed_db()
 
