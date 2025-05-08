@@ -5,7 +5,7 @@ from pydantic import BaseModel
 from typing import List
 import json
 import os
-from .modules.config import DB_PATH, seed_db
+from .modules.config import CLIENT_PATH, DB_PATH, seed_db
 
 seed_db()
 
@@ -53,4 +53,4 @@ async def add_course(course: CourseIn):
     raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Error when save on db")
   return status.HTTP_201_CREATED
 
-app.mount("/", StaticFiles(directory="../client", html=True), name="client")
+app.mount("/", StaticFiles(directory=CLIENT_PATH, html=True), name="client")
