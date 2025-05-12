@@ -1,9 +1,10 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from modules import config
-from routes import courses_routes
+from backend.modules import config
+from backend.routes import courses_routes
+from backend.db import sqlite
 
-config.seed_db()
+sqlite.seed_db_sqlite()
 app = FastAPI()
 
 app.include_router(courses_routes.router, prefix="/api/courses", tags=["Courses"])
