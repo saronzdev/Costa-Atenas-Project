@@ -1,24 +1,59 @@
-const getData = async () => {
-  const response = await fetch("/api/courses")
-  const result = await response.json()
-  if (response.ok) return result
-  else return {"msg": "error"}
-}
-
-const data = await getData()
 const ul = document.getElementById("courses")
 const h1 = document.getElementById("title")
-const form = document.getElementById("form")
+const form = document.getElementById("form-data")
 const inputName = document.getElementById("name")
 const inputPrice = document.getElementById("price")
+const deleteBtn = document.getElementById("delete-btn")
 
-if (data.msg !== "error") {
+const updateData = (response, data) => {
+  if (!response.ok) {
+    h1.innerText = "No hay cursos"
+    return
+  }
   data.forEach(item => {
-    const element = `<li>Nombre: ${item.name}  |||  Precio: ${item.price}</li>`
-    ul.insertAdjacentHTML("beforeend", element)
+    console.log(item.id)
+    const li = document.createElement("li")
+    li.dataset.id = item.id
+    li.classList.add("course-li")
+    li.innerHTML = `
+      <div class="course-card">
+        <span id="span-name"><strong>Nombre:</strong> ${item.name}</span>
+        <span id="span-price"><strong>Precio:</strong> ${item.price}</span>
+      </div>
+      <button class="delete-btn" data-id="${item.id}">Borrar</button>
+    `
+    ul.appendChild(li)
   })
 }
-else h1.innerText = "No hay cursos"
+    
+const deleteData = async (id) => {
+  const response = await fetch(`/api/courses/${id}`, {
+    method: "DELETE"
+  })
+  if (!response.ok) {
+    alert("Error deleting course...")
+    return
+  }
+  await getData()
+  alert("Borrado")
+}
+
+const getData = async () => {
+  const response = await fetch("/api/courses")
+  const data = await response.json()
+  ul.innerHTML = ""
+  updateData(response, data)
+}
+
+await getData()
+
+ul.addEventListener("click", async (e) => {
+  if (e.target.classList.contains("delete-btn")) {
+    const id = e.target.dataset.id
+    console.log(id)
+    await deleteData(id)
+  }
+})
 
 form.addEventListener("submit", async e => {
   e.preventDefault()
@@ -37,9 +72,9 @@ const addCourse = async (name, price) => {
     },
     body: JSON.stringify({name, price})
   })
-  if (response.ok) alert("Añadido")
+  if (response.ok) {
+    await getData()
+    alert("Añadido")
+  }
   else alert("Error")
 }
-
-
-

@@ -2,18 +2,8 @@
   "courses": [
     {
       "id": 1,
-      "name": "Messi",
-      "price": 230.0
-    },
-    {
-      "id": 2,
-      "name": "Pedro",
-      "price": 240.0
-    },
-    {
-      "id": 3,
-      "name": "Mengana",
-      "price": 210.0
+      "name": "sample",
+      "price": 50.0
     }
   ]
 }

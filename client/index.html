@@ -4,18 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Proyecto Costa Atenas</title>
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./style.css">
   <script type="module" src="./index.js"></script>
 </head>
 <body>
+  <header>
+    <nav>
+      <a class="nav-link" href="/">Inicio</a>
+      <a class="nav-link" href="/login">Inicio de sesión</a>
+      <a class="nav-link" href="/courses">Cursos</a>
+      <a class="nav-link" href="/about">Acerca de</a>
+    </nav>
+  </header>
   <h1 id="title">Cursos</h1>
   <ul id="courses"></ul>
   <br>
-  <br>
   <h1>Agregar Curso</h1>
-  <form id="form">
-    <input type="text" name="name" id="name">
-    <input type="text" name="price" id="price">
+  <form id="form-data">
+    <input type="text" name="name" id="name" placeholder="Nombre">
+    <input type="text" name="price" id="price" placeholder="Precio">
     <button type="submit">Agregar</button>
   </form>
 </body>

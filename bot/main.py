@@ -1,7 +1,6 @@
 from telegram.ext import Application, ApplicationBuilder, CommandHandler, filters, MessageHandler
 from modules.commands import start, help, new_course, add_course, get_courses,delete_course
 from modules.config import BOT_TOKEN, COMMANDS
-import requests
 
 async def post_init(application: Application):
   await application.bot.set_my_commands(COMMANDS)
@@ -16,6 +15,7 @@ def main():
   app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, add_course))
 
   print("Running Bot")
+  
   app.run_polling()
 
 if __name__ == "__main__":
