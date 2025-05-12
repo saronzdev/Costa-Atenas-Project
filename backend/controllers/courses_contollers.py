@@ -1,10 +1,12 @@
-from backend.db import json
+from backend.db import json, sqlite
 from backend.models import courses_models
 
 async def get_courses():
-  data = json.read_db()
-  if not len(data.get("courses", [])) > 0: return 1 
-  return data.get("courses", [])
+  data = sqlite.read_db() # json.read_db()
+  # if not len(data.get("courses", [])) > 0: return 1 
+  if not len(data) > 0: return 1
+  print(data) 
+  return data
 
 async def add_course(course: courses_models.CourseIn):
   data = json.read_db()

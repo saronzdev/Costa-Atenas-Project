@@ -1,9 +1,0 @@
-{
-  "courses": [
-    {
-      "id": 1,
-      "name": "sample",
-      "price": 50.0
-    }
-  ]
-}

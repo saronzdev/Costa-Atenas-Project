@@ -13,3 +13,8 @@ def seed_db_sqlite():
     )               
   ''')
 conn.commit()
+
+def read_db():
+  cursor.execute("SELECT * FROM courses")
+  courses = cursor.fetchall()
+  return courses
