@@ -1,6 +1,6 @@
 from telegram import Update
 from telegram.ext import ContextTypes
-from .config import API_URL, DESCRIPTIONS, wait
+from modules import config
 import requests
 
 async def start(update: Update):
@@ -8,15 +8,15 @@ async def start(update: Update):
   await update.message.reply_text(f"Hola {name}, bienvenido/a al bot, usa /help para ver los comandos disponibles")
 
 async def help(update: Update):
-  await update.message.reply_text("\n".join(DESCRIPTIONS))
+  await update.message.reply_text("\n".join(config.DESCRIPTIONS))
 
 async def new_course(update: Update):
   user_id = update.effective_user.id
-  wait[user_id] = True
+  config.wait[user_id] = True
   await update.message.reply_text("Introduzca el nombre y el precio separados por coma")
   
 async def get_courses(update: Update):
-  response = requests.get(API_URL)
+  response = requests.get(config.API_URL)
   courses = response.json()
   if len(courses) > 0: 
     for course in courses:
@@ -25,7 +25,7 @@ async def get_courses(update: Update):
 
 async def add_course(update: Update):
   user_id = update.effective_user.id
-  if not wait.get(user_id): return
+  if not config.wait.get(user_id): return
   data = update.message.text.split(",")
   if len(data) < 2:
     return await update.message.reply_text("Formato incorrecto. Intente otra vez")
@@ -37,12 +37,12 @@ async def add_course(update: Update):
   
   new_course = {"name": name, "price": price}
   response = requests.post(
-    API_URL,
+    config.API_URL,
     json=new_course,
     headers={"Content-Type": "application/json"},
   )
   res = "Añadido" if response.status_code == 201 else "Ha ocurrido un error del lado del servidor"
-  wait[user_id] = False
+  config.wait[user_id] = False
   await update.message.reply_text(res)
 
 async def delete_course(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -53,6 +53,6 @@ async def delete_course(update: Update, context: ContextTypes.DEFAULT_TYPE):
   except:
     return await update.message.reply_text("ID invalido. Intente otra vez")
 
-  response = requests.delete(f"{API_URL}{id}")
+  response = requests.delete(f"{config.API_URL}{id}")
   res = "Eliminado" if response.status_code == 200 else "Ha ocurrido un error del lado del servidor"
   await update.message.reply_text(res)
