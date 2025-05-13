@@ -12,7 +12,7 @@ form.addEventListener("submit", async e => {
 })
 
 const addCourse = async (name, price) => {
-  const response = await fetch("/api/courses", {
+  const response = await fetch("/api/courses/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
