@@ -3,19 +3,19 @@ from telegram.ext import ContextTypes
 from modules import config
 import requests
 
-async def start(update: Update):
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
   name = update.effective_user.first_name
   await update.message.reply_text(f"Hola {name}, bienvenido/a al bot, usa /help para ver los comandos disponibles")
 
-async def help(update: Update):
+async def help(update: Update, context: ContextTypes.DEFAULT_TYPE):
   await update.message.reply_text("\n".join(config.DESCRIPTIONS))
 
-async def new_course(update: Update):
+async def new_course(update: Update, context: ContextTypes.DEFAULT_TYPE):
   user_id = update.effective_user.id
   config.wait[user_id] = True
   await update.message.reply_text("Introduzca el nombre y el precio separados por coma")
   
-async def get_courses(update: Update):
+async def get_courses(update: Update, context: ContextTypes.DEFAULT_TYPE):
   response = requests.get(config.API_URL)
   courses = response.json()
   if len(courses) > 0: 
@@ -23,7 +23,7 @@ async def get_courses(update: Update):
       await update.message.reply_text(course)
   else: await update.message.reply_text("No hay cursos")
 
-async def add_course(update: Update):
+async def add_course(update: Update, context: ContextTypes.DEFAULT_TYPE):
   user_id = update.effective_user.id
   if not config.wait.get(user_id): return
   data = update.message.text.split(",")
