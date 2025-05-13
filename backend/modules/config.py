@@ -1,5 +1,7 @@
-from pathlib import Path
+import os
 
-DB_PATH = Path(__file__).parent.parent / "db.json"
-SQLITE_DB_PATH = Path(__file__).parent.parent / "database.db"
-CLIENT_PATH = Path(__file__).parent.parent.parent / "client"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+DB_DIR = os.path.join(BASE_DIR, "backend", "database.db")
+STATIC_DIR = os.path.join(BASE_DIR, "client", "static")
+TEMPLATES_DIR = os.path.join(BASE_DIR, "client", "templates")

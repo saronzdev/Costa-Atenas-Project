@@ -1,0 +1,75 @@
+:root {
+  --color-primary: #4e82bf; /* Azul medio */
+  --color-secondary: #e3c83b; /* Amarillo dorado */
+  --color-accent: #1b4dc1; /* Azul grisáceo */
+  --color-text: #edf3f8; /* Blanco azulado */
+  --color-header:#87CEEB; /* Azul claro */
+  --color-card-bg: rgba(255, 255, 255, 0.1);
+}
+body {
+  display: flex;
+  background-color: #4e82bf;
+  color: #edf3f8;
+  flex-flow: column nowrap;
+  min-width: 100vw;
+  min-height: 100vh;
+  justify-content: start;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  margin: 10px;
+}
+ul {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  max-width: 80vw;
+  padding: 10px;
+  margin: 0;
+}
+li {
+  list-style: none;
+  margin: 10px;
+}
+.nav-link {
+  font-size: 20px;
+  padding: 5px;
+  margin: 5px;
+  color: #edf3f8;
+}
+.course-li {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+.course-card {
+  background-color: rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  border: 1.5px solid #e3c83b;
+  border-radius: 8px;
+  padding: 20px;
+  width: fit-content;
+}
+span {
+  font-size: 18px;
+}
+button {
+  font-size: 18px;
+  padding: 10px;
+  color: #edf3f8;
+  background-color: #1b4dc1;
+  border: none;
+  border-radius: 6px;
+}
+button:hover {
+  cursor: pointer;
+}

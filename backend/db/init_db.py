@@ -2,7 +2,7 @@ import sqlite3
 from backend.modules import config
 
 def init():
-  conn = sqlite3.connect(config.SQLITE_DB_PATH)
+  conn = sqlite3.connect(config.DB_DIR)
   cursor = conn.cursor()
   cursor.execute('''
     CREATE TABLE IF NOT EXISTS courses (
