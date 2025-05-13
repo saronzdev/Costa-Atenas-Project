@@ -14,7 +14,10 @@ __pycache__/
 # Archivos del sistema
 .DS_Store
 
-# Base de Datos
+# REST Client
+requests.http
+
+# Bases de Datos
 backend/db.json
 backend/database.db
 

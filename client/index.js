@@ -39,7 +39,7 @@ const deleteData = async (id) => {
 }
 
 const getData = async () => {
-  const response = await fetch("/api/courses")
+  const response = await fetch("/api/courses/")
   const data = await response.json()
   ul.innerHTML = ""
   updateData(response, data)
@@ -65,7 +65,7 @@ form.addEventListener("submit", async e => {
 })
 
 const addCourse = async (name, price) => {
-  const response = await fetch("/api/courses", {
+  const response = await fetch("/api/courses/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
