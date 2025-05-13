@@ -21,7 +21,17 @@ async def del_course(id: int, db: sqlite3.Connection):
   return 0
 
 async def update_course(new: courses_models.CourseIn, id: int, db: sqlite3.Connection):
+  if not new: return 2
+  new = new.model_dump(exclude_unset=True)
+  set_clause = ", ".join([f"{field} = ?" for field in new])
+  values = list(new.values())
+  values.append(id)
+  query = f"UPDATE courses SET {set_clause} WHERE id = ?"
+
   cursor = db.cursor()
-  cursor.execute("UPDATE courses SET name = ?, price = ? WHERE id = ?", (new.name, new.price, id))
+  cursor.execute(query, values)
   db.commit()
+  
+  if cursor.rowcount == 0: return 1
+
   return 0

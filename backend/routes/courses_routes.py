@@ -27,7 +27,7 @@ async def delete_course(id: int, db: sqlite3.Connection = Depends(db.get_db)):
   return status.HTTP_200_OK
 
 @router.put("/{id}")
-async def update_course(id: int, new: courses_models.CourseIn, db: sqlite3.Connection = Depends(db.get_db)):
+async def update_course(id: int, new: courses_models.CourseUpdate, db: sqlite3.Connection = Depends(db.get_db)):
   response = await courses_contollers.update_course(new, id, db)
   if response != 0: raise HTTPException(status_code=404)
   return status.HTTP_200_OK
