@@ -3,7 +3,7 @@ const deleteBtn = document.getElementById("delete-btn")
 const ul = document.getElementById("courses")
 
 const updateData = (response, data) => {
-  if (!response.ok) {
+  if (response.status === 404) {
     h1.innerText = "No hay cursos"
     return
   }
