@@ -20,7 +20,6 @@ const addCourse = async (name, price) => {
     body: JSON.stringify({name, price})
   })
   if (response.ok) {
-    //await getData()
     alert("Añadido")
   }
   else alert("Error")

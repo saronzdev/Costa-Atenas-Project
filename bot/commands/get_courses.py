@@ -1,12 +1,13 @@
 from telegram import Update
 from telegram.ext import ContextTypes
-from modules import config
-import requests
+from api import get
 
 async def get_courses(update: Update, context: ContextTypes.DEFAULT_TYPE):
-  response = requests.get(config.API_URL)
-  if response.status_code == 404: return await update.message.reply_text("No hay cursos") 
-  courses = response.json()
-  for course in courses:
-    result = f"ID: {course["id"]}\nNombre: {course["name"]}\nPrecio: {course["price"]}"
-    await update.message.reply_text(result)
+  args = context.args
+  if args:
+    try: id = int(" ".join(args))
+    except ValueError: return await update.message.reply_text("ID invalido. Intente otra vez")
+    result = await get.get_one(id)
+  else: result = await get.get_all()
+  
+  await update.message.reply_text(result)

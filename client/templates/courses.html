@@ -1,19 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
-  <link rel="stylesheet" href="static/courses.css">
-  <script type="module" src="static/courses.js"></script>
-  <title id="title">Cursos</title>
-</head>
-<body>
-  <h1>Cursos Disponibles</h1>
-  <br>
-  <ul id="courses"></ul>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Cursos{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="static/css/courses.css">
+{% endblock %}
+
+{% block content %}
+<h1 id="title">Cursos Disponibles</h1>
+<br>
+<ul id="courses"></ul>
+{% endblock %}
+
+{% block scripts %}
+<script type="module" src="static/js/courses.js"></script>
+{% endblock %}

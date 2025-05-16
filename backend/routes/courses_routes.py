@@ -10,24 +10,24 @@ router = APIRouter()
 @router.get("/", response_model=List[courses_models.CourseOut])
 def get_courses(db: sqlite3.Connection = Depends(db.get_db)):
   users = courses_contollers.get_courses(db)
-  if not users == 1:
-    return users
-  else: raise HTTPException(status_code=404)
+  return users
+
+@router.get("/{id}")#, response_model=courses_models.CourseOut)
+def get_course(id: int, db: sqlite3.Connection = Depends(db.get_db)):
+  user = courses_contollers.get_course(id, db)
+  return user
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
 async def add_courses(course: courses_models.CourseIn, db: sqlite3.Connection = Depends(db.get_db)):
-  response = await courses_contollers.add_course(course, db)
-  if response != 0: raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Error when save on db")
+  await courses_contollers.add_course(course, db)
   return status.HTTP_201_CREATED
 
 @router.delete("/{id}")
 async def delete_course(id: int, db: sqlite3.Connection = Depends(db.get_db)):
-  response = await courses_contollers.del_course(id, db)
-  if response != 0: raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+  await courses_contollers.del_course(id, db)
   return status.HTTP_200_OK
 
 @router.put("/{id}")
 async def update_course(id: int, new: courses_models.CourseUpdate, db: sqlite3.Connection = Depends(db.get_db)):
-  response = await courses_contollers.update_course(new, id, db)
-  if response != 0: raise HTTPException(status_code=404)
+  await courses_contollers.update_course(new, id, db)
   return status.HTTP_200_OK

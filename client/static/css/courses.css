@@ -6,19 +6,6 @@
   --color-header:#87CEEB; /* Azul claro */
   --color-card-bg: rgba(255, 255, 255, 0.1);
 }
-body {
-  display: flex;
-  background-color: #4e82bf;
-  color: #edf3f8;
-  flex-flow: column nowrap;
-  min-width: 100vw;
-  min-height: 100vh;
-  justify-content: start;
-  align-items: center;
-  margin: 0;
-  padding: 0;
-}
-
 h1 {
   margin: 10px;
 }
