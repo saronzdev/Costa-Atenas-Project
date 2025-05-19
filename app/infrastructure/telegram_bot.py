@@ -1,6 +1,6 @@
 from telegram.ext import Application, ApplicationBuilder, CommandHandler, filters, MessageHandler
 from app.application.bot import start_command, help_command, get_command, new_command, update_command, delete_command, handler_inputs
-from app.domain.services import create_bot_commands
+from config import create_bot_commands
 import config
 import asyncio
 

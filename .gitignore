@@ -18,6 +18,5 @@ __pycache__/
 requests.http
 
 # Bases de Datos
-backend/db.json
-backend/database.db
+database.db
 

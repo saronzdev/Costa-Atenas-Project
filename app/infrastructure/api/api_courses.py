@@ -3,7 +3,6 @@ import requests
 from app.application.models import CourseUpdate, CourseIn
 
 def get_all():
-  print(config.API_URL)
   try:
     response = requests.get(config.API_URL)
     response.raise_for_status()

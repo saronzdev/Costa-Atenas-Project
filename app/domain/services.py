@@ -1,11 +1,13 @@
-from app.application.models import CourseUpdate
-from telegram import BotCommand
-
 def format_list_courses(courses: list[dict]) -> str:
   response = ""
+  lens = [len(course["name"]) for course in courses]
+  sep = "+" + "----" * max(lens) + "+"
   for course in courses:
-    response = f"{response}\n ID: {course["id"]}\nNombre: {course["name"]}\nPrecio: {course["price"]}"
+    response = f"{response}\nID: {course["id"]}\nNombre: {course["name"]}\nPrecio: {course["price"]}\n{sep}"
   return response
+
+def format_course(course: dict) -> str:
+  return f"ID: {course["id"]}\nNombre: {course["name"]}\nPrecio: {course["price"]}"
  
 def set_query_update(course: dict) -> list:
   set_clause = ", ".join([f"{field} = ?" for field in course])
@@ -14,17 +16,6 @@ def set_query_update(course: dict) -> list:
   return [query, values]
 
 errors = [{404: "No encontrado", 500: "Error del servidor"}]
-
-def create_bot_commands():
-  COMMANDS = [
-    BotCommand("start", "Iniciar el bot"),
-    BotCommand("help", "Mostrar los comandos disponibles"),
-    BotCommand("new", "Añadir nuevo curso"),
-    BotCommand("get", "<ID opcional> obtener cursos disponibles"),
-    BotCommand("delete", "Borrar un curso"),
-    BotCommand("update", "Actualizar un curso")
-  ]
-  return COMMANDS
 
 def get_commands_desc() -> list:
   DESCRIPTIONS = [
