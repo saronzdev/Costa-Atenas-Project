@@ -1,6 +1,7 @@
 # Repositorio oficial del bot, backend y fronted del proyecto Costa Atenas
 
-## Enlaces:
+## Enlaces
+
 - 🤖 [Bot de Telegram](https://t.me/test_509_bot)
 - 🌐 Web (en desarrollo)
 
@@ -8,7 +9,8 @@
 
 ## 🛠️ Instrucciones para ejecutar el backend, frontend y el bot
 
-### En Linux:
+### En Linux
+
 1. Abre una terminal en la carpeta raíz del proyecto.
 2. Ejecuta los siguientes comandos:
 
@@ -19,7 +21,7 @@
 
 > **Nota**: También puedes ejecutar los archivos directamente desde el explorador (asegúrate de que tengan permisos de ejecución).
 
-### En Windows:
+### En Windows
 
 1. Abre CMD o PowerShell en la carpeta raíz del proyecto.
 2. Ejecuta los siguientes comandos:
