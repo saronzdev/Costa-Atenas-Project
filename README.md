@@ -27,6 +27,6 @@
 2. Ejecuta los siguientes comandos:
 
 ```powershell
-python -m app.infrastructure.telegram_bot
-uvicorn app.infrastructure.fastapi_server:app --reload --port 3000
+python -m src.infrastructure.telegram_bot
+uvicorn src.infrastructure.fastapi_server:app --reload --port 3000
 ```

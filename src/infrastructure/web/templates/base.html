@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8">
@@ -8,9 +8,8 @@
   <link rel="icon" type="image/png" sizes="32x32" href="static/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="static/icons/favicon-16x16.png">
   <link rel="manifest" href="static/icons/site.webmanifest">
-  <!-- <link rel="stylesheet" href="static/css/base.css"> -->
+
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <style type="text/tailwindcss">
     @theme {
         --color-primary: #4e82bf; /* Azul medio */
@@ -25,8 +24,7 @@
             color: #333;
           }
   </style>
-  <title id="title">Cursos</title>
-  <title>{% block title %}Mi Web{% endblock%}</title>
+  <title>{% block title %}{% endblock%}</title>
 </head>
 
 <body class="bg-gray-50">
@@ -87,7 +85,7 @@
     {% endblock %}
   </main>
 
-  <footer class="fixed bottom-0 flex justify-center items-center py-6 bg-header w-screen">
+  <footer class="fixed bottom-0 flex justify-center items-center py-4 bg-header w-screen">
     <span class="mx-4 text-xl text-accent">&#169;2025 Todos los derechos reservados</span>
   </footer>
 

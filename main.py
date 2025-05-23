@@ -1,5 +1,5 @@
-from app.infrastructure.telegram_bot import start_telegram_bot
-from app.infrastructure.fastapi_server import start_fastapi_server
+from src.infrastructure.telegram_bot import start_telegram_bot
+from src.infrastructure.fastapi_server import start_fastapi_server
 
 if __name__ == "__main__":
   import threading

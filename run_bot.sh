@@ -1,3 +1,3 @@
 #! /bin/bash
 
-python3 -m app.infrastructure.telegram_bot
+python3 -m src.infrastructure.telegram_bot

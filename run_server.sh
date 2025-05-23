@@ -1,3 +1,3 @@
 #! /bin/bash
 
-uvicorn app.infrastructure.fastapi_server:app --reload --port 8000
+uvicorn src.infrastructure.fastapi_server:app --reload --port 8000
