@@ -1,7 +1,7 @@
 def try_except(code: int):
   if code == 404:
-    return ValueError("No encontrado")
+    return "No encontrado"
   if code == 400:
-    return ValueError("Petición incorrecta")
+    return "Petición incorrecta"
   if code == 500:
-    return ValueError("Error no controlado")
+    return "Error no controlado"

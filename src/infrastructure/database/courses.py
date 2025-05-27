@@ -14,8 +14,8 @@ class CoursesRepository():
       CREATE TABLE IF NOT EXISTS courses (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
-        price REAL NOT NULL            
-      )               
+        price REAL NOT NULL
+      )
     ''')
     self.conn.commit()
 
@@ -23,13 +23,13 @@ class CoursesRepository():
     coursor = self.conn.cursor()
     coursor.execute("INSERT INTO courses (name, price) VALUES (?, ?)", [course.name, course.price])
     self.conn.commit()
-    
+
     return {"ok": True}
 
-  def find_courses(self) -> list[schemas.CourseOut]:
+  def find_courses(self):
     cursor = self.conn.cursor()
     cursor.execute("SELECT * FROM courses")
-    
+
     if cursor.rowcount == 0: return {"error": 404}
     return cursor.fetchall()
 
@@ -37,29 +37,29 @@ class CoursesRepository():
     cursor = self.conn.cursor()
     cursor.execute("SELECT * FROM courses WHERE id = ?", [id])
     course = cursor.fetchone()
-    
+
     if not course: return {"error": 404}
-    return course 
+    return course
 
   def update_course_by_id(self, id: int, course: dict):
+    if not course:
+      return {"error": 400}
     fields, params = set_query_update(course)
     params.append(id)
 
     cursor = self.conn.cursor()
     cursor.execute(f"UPDATE courses SET {", ".join(fields)} WHERE id = ?", params)
-    
+
     if cursor.rowcount == 0: return {"error": 404}
-    
+
     self.conn.commit()
     return {"ok": True}
 
   def delete_course_by_id(self, id: int):
     cursor = self.conn.cursor()
     cursor.execute("DELETE FROM courses WHERE id = ?", [id])
-    
+
     if cursor.rowcount == 0: return {"error": 404}
     self.conn.commit()
-    
-    return {"ok": True}  
-  
 
+    return {"ok": True}

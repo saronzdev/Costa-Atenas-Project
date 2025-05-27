@@ -1,7 +1,7 @@
 from telegram import Update
 from telegram.ext import ContextTypes
 from src.domain.bot_handler import BotCommandHandler
-from src.shared import formatters, schemas, utils
+from src.shared import schemas, utils
 from src.application.courses import CourseServices
 from src.infrastructure.database.courses import CoursesRepository
 from src.shared.exceptions import try_except
@@ -20,14 +20,14 @@ class CommandsHandler(BotCommandHandler):
 
   async def get_courses_cmd(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
     args = context.args
-  
+
     if args:
       try: id = int(" ".join(args))
       except ValueError: return await update.message.reply_text("ID invalido. Intente otra vez")
       response = courses.get_one(id, formated=True)
-    else: response = repo.get_all(formated=True)
+    else: response = courses.get_all(formated=True)
 
-    if "error" in response: return try_except(response["error"])
+    if "error" in response: response = try_except(response["error"])
     await update.message.reply_text(response)
 
   async def new_course_cmd(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -42,6 +42,10 @@ class CommandsHandler(BotCommandHandler):
     if not args: return await update.message.reply_text("Ingresa el ID despues del comando")
     try: id = int(" ".join(args))
     except: return await update.message.reply_text("ID invalido. Intente otra vez")
+    
+    data = courses.get_one(id)
+    if "error" in data: return await update.message.reply_text(try_except(data["error"]))
+    
     config.user_states[user_id] = {"state": 1}
     config.user_states[user_id].update({"type": 2})
     config.user_states[user_id].update({"id": id})
@@ -51,12 +55,13 @@ class CommandsHandler(BotCommandHandler):
   async def delete_course_cmd(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
     args = context.args
     if not args: return await update.message.reply_text("Ingresa el ID despues del comando")
-    
+
     try: id = int(" ".join(args))
     except: return await update.message.reply_text("ID invalido. Intente otra vez")
-    
+
     response = courses.delete_one(id)
     if "error" in response: response = try_except(response["error"])
+    else: response = "Borrado"
     await update.message.reply_text(response)
 
   async def handler_inputs_cmd(self, update, context):
@@ -64,23 +69,23 @@ class CommandsHandler(BotCommandHandler):
     message = update.message.text.strip()
 
     if user_id not in config.user_states: return
-    
+
     type = config.user_states[user_id]["type"]
     state = config.user_states[user_id]["state"]
-    
+
     text_price = 'Ingre el nuevo precio ("-" para dejar el original)' if type == 2 else "Ingrese el precio"
-    
+
     if state == 1:
       config.user_states[user_id]["name"] = message
       config.user_states[user_id]["state"] = 2
       await update.message.reply_text(text_price)
-    
+
     elif state == 2:
       config.user_states[user_id]["price"] = message
       name = config.user_states[user_id]["name"]
       price = config.user_states[user_id]["price"]
-      
-      if price.strip() != "-":   
+
+      if price.strip() != "-":
         try: price = float(price)
         except: return await update.message.reply_text("Precio incorrecto. Intente otra vez.")
       else: price = None
@@ -96,5 +101,6 @@ class CommandsHandler(BotCommandHandler):
 
       del config.user_states[user_id]
 
-      if "error" in response: response = try_except(response["error"])   
+      if "error" in response: response = try_except(response["error"])
+      else: response = "Hecho"
       await update.message.reply_text(response)

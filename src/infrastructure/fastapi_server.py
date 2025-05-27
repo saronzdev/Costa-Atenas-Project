@@ -10,4 +10,4 @@ app.include_router(web_page.router, prefix="")
 app.include_router(courses.router, prefix="/api/courses")
 
 def start_fastapi_server():
-  uvicorn.run(app, host="127.0.0.1", port=3000, log_level="info")
+    uvicorn.run(app, host="127.0.0.1", port=3000, log_level="info")

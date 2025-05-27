@@ -7,13 +7,13 @@ class CourseRepository(ABC):
     pass
 
   @abstractmethod
-  def find_courses(self) -> list[schemas.CourseOut]:
+  def find_courses(self):
     pass
 
   @abstractmethod
   def find_course_by_id(self, id: int):
     pass
-  
+
   @abstractmethod
   def update_course_by_id(self, id: int, course: dict):
     pass
@@ -21,23 +21,3 @@ class CourseRepository(ABC):
   @abstractmethod
   def delete_course_by_id(self, id: int):
     pass
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
