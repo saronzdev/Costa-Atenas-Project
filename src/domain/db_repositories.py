@@ -3,21 +3,12 @@ from src.shared import schemas
 
 class CourseRepository(ABC):
   @abstractmethod
-  def create_new_course(self, course: schemas.CourseIn):
-    pass
-
+  def create_new_course(self, course: schemas.CourseIn): ...
   @abstractmethod
-  def find_courses(self):
-    pass
-
+  def find_courses(self): ...
   @abstractmethod
-  def find_course_by_id(self, id: int):
-    pass
-
+  def find_course_by_id(self, id: int): ...
   @abstractmethod
-  def update_course_by_id(self, id: int, course: dict):
-    pass
-
+  def update_course_by_id(self, id: int, course: dict): ...
   @abstractmethod
-  def delete_course_by_id(self, id: int):
-    pass
+  def delete_course_by_id(self, id: int): ...
