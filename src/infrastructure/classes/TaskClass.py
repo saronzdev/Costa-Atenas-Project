@@ -1,3 +1,4 @@
+@dataclass
 class Task:
 id:str
 title:str
