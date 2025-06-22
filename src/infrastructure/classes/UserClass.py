@@ -1,3 +1,4 @@
+@dataclass
 class User:
   id:int
   username:str
